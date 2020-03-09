@@ -1,0 +1,451 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Open Banking APIs",
+    "description" : "This project is test project, inspired from https://github.com/OpenBankProject",
+    "termsOfService" : "NA",
+    "contact" : {
+      "name" : "Avinash",
+      "url" : "https://github.com/archalke/Open_Bank_API_Specs",
+      "email" : "avinash1807ch@gmail.com"
+    },
+    "version" : "2020-03"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/archalke/Banking_API/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "security" : [ {
+    "application" : [ "read", "write" ]
+  } ],
+  "paths" : {
+    "/banks" : {
+      "get" : {
+        "summary" : "Get list of banks with basic details",
+        "description" : "This is an example operation to `get all banks`\n",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Banks"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Send bank details to add new bank",
+        "description" : "`Onboard new bank` with all required details\n",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Bank"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/banks/{bank_id}" : {
+      "get" : {
+        "summary" : "Get bank details",
+        "description" : "This is to `get bank details`\n",
+        "parameters" : [ {
+          "name" : "bank_id",
+          "in" : "path",
+          "description" : "Bank's numeric Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Bank"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/banks/{bank_id}/branches" : {
+      "get" : {
+        "summary" : "Get list of branch of bank",
+        "description" : "This is to `List of branches for that bank`\n",
+        "parameters" : [ {
+          "name" : "bank_id",
+          "in" : "path",
+          "description" : "Bank's numeric Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Branches"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Add new branch",
+        "description" : "This is to `add new branch details to list of branches for that bank`\n",
+        "parameters" : [ {
+          "name" : "bank_id",
+          "in" : "path",
+          "description" : "Bank's numeric Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully added new branch"
+          }
+        }
+      }
+    },
+    "/banks/{bank_id}/branches/{branch_id}" : {
+      "get" : {
+        "description" : "this will provide `branch details`\n",
+        "parameters" : [ {
+          "name" : "bank_id",
+          "in" : "path",
+          "description" : "Bank's numeric Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "branch_id",
+          "in" : "path",
+          "description" : "branch's numberic id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Branch"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/banks/{bank_id}/accounts" : {
+      "get" : {
+        "summary" : "get accounts under branch",
+        "description" : "This gives you the all accounts available under branch in private mode only\n",
+        "parameters" : [ {
+          "name" : "bank_id",
+          "in" : "path",
+          "description" : "Bank's numeric Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Accounts"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "create a new account",
+        "description" : "create a new account in bank\n",
+        "parameters" : [ {
+          "name" : "bank_id",
+          "in" : "path",
+          "description" : "Bank's numeric Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Successfully Added new account for bank"
+          }
+        }
+      }
+    },
+    "/banks/{bank_id}/accounts/{account_id}" : {
+      "get" : {
+        "summary" : "get account details",
+        "description" : "Gives account details user has access to.\n",
+        "parameters" : [ {
+          "name" : "account_id",
+          "in" : "path",
+          "description" : "account's id to identify an account",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "bank_id",
+          "in" : "path",
+          "description" : "Bank's numeric Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Accounts"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "create a new account",
+        "description" : "create a new account in bank\n",
+        "parameters" : [ {
+          "name" : "account_id",
+          "in" : "path",
+          "description" : "account's id to identify an account",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "bank_id",
+          "in" : "path",
+          "description" : "Bank's numeric Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Successfully Added new account for bank"
+          }
+        }
+      }
+    },
+    "/banks/{bank_id}/balances" : {
+      "get" : {
+        "summary" : "Get overall balances with all accounts",
+        "description" : "Get all accounts with private mode shows only balances to get overall balance\n",
+        "parameters" : [ {
+          "name" : "bank_id",
+          "in" : "path",
+          "description" : "Bank's numeric Id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Balances"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Balances" : {
+        "type" : "array",
+        "description" : "Array of accounts with balances to get overall balance",
+        "items" : {
+          "$ref" : "#/components/schemas/Balance"
+        }
+      },
+      "Balance" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "example" : 1
+          },
+          "amount" : {
+            "type" : "number",
+            "example" : 1123.25
+          }
+        },
+        "description" : "Balance object"
+      },
+      "Accounts" : {
+        "type" : "array",
+        "description" : "Array of accounts",
+        "items" : {
+          "$ref" : "#/components/schemas/Account"
+        }
+      },
+      "Account" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "example" : 1
+          }
+        },
+        "description" : "Account object"
+      },
+      "Banks" : {
+        "type" : "array",
+        "description" : "Array of Bank",
+        "items" : {
+          "$ref" : "#/components/schemas/Bank"
+        }
+      },
+      "Bank" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "example" : 1
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "ABC Bank"
+          }
+        }
+      },
+      "Branches" : {
+        "type" : "array",
+        "description" : "Array of branch",
+        "items" : {
+          "$ref" : "#/components/schemas/Branch"
+        }
+      },
+      "Branch" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "example" : 1
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Pune Main Branch"
+          }
+        }
+      }
+    },
+    "parameters" : {
+      "Account_Id" : {
+        "name" : "account_id",
+        "in" : "path",
+        "description" : "account's id to identify an account",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "integer"
+        }
+      },
+      "Bank_Id" : {
+        "name" : "bank_id",
+        "in" : "path",
+        "description" : "Bank's numeric Id",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "integer"
+        }
+      },
+      "Branch_Id" : {
+        "name" : "branch_id",
+        "in" : "path",
+        "description" : "branch's numberic id",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "securitySchemes" : {
+      "application" : {
+        "type" : "oauth2",
+        "flows" : {
+          "clientCredentials" : {
+            "tokenUrl" : "http://example.com/oauth/token",
+            "scopes" : {
+              "write" : "allows modifying resources",
+              "read" : "allows reading resources"
+            }
+          }
+        }
+      }
+    }
+  }
+}
